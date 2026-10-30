@@ -26,11 +26,11 @@ src/
 └── hooks/          useProprietarios.ts, useVeiculos.ts, avisar.ts
 ```
 
-## O que o back-end precisa ter
+## Como o front conversa com o back (BackEstacionamento)
 
-- Rotas: `/proprietarios` e `/veiculos` (GET, POST, PUT /:id, DELETE /:id)
-- Proprietário: `id`, `nome`, `telefone`
-- Veículo: `id`, `placa`, `modelo`, `cor`, `proprietario_id`
-- `GET /veiculos` com `include: Proprietario` (para exibir o nome do dono)
-
-Se os nomes dos campos ou rotas forem diferentes, ajuste nos hooks e nas telas.
+- Porta **8081** (ajuste o IP em `src/constants/api.ts`)
+- Rotas no **singular**: `/proprietario` e `/veiculo` (GET, POST, PUT /:id, DELETE /:id)
+- Proprietário: `id_proprietario`, `nome`, `cpf`
+- Veículo: `id_veiculo`, `placa`, `ano`, `mensalidade`, `fk_proprietario` (obrigatório)
+- `GET /veiculo` não traz o dono: a tela de veículos busca os proprietários e procura pelo `fk_proprietario`
+- No back, excluir um proprietário apaga também os veículos dele (`onDelete: CASCADE`)
